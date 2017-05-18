@@ -1,0 +1,31 @@
+
+
+version: '2.1'
+services:
+  admin:
+    image: ${DOCKER_REGISTRY:-registry.docker.local}/practice-service:${VERSION:-latest}
+    restart: always
+    command: []
+    container_name: ${EUREKA_INSTANCE_HOSTNAME:-local-practice-service}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:-local-practice-service}
+    ports:
+    - "${EUREKA_INSTANCE_NONSECUREPORT:-8080}:${SERVER_PORT:-8080}"
+    environment:
+    - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:-http://user:user_pass@local-eureka:8761/eureka/}
+    - EUREKA_INSTANCE_HOSTNAME=${EUREKA_INSTANCE_HOSTNAME:-local-practice-service}
+    - SERVER_PORT=${SERVER_PORT:-8080}
+    - SPRING_PROFILES_ACTIVE=${ENV:-development}.env
+    volumes:
+    - practice-service-volume:/root/data
+    - practice-service-volume:/tmp
+    external_links:
+    - local-eureka:local-eureka
+    - local-configserver:local-configserver
+
+volumes:
+  practice-service-volume: {}
+
+networks:
+  default:
+    external:
+      name: yrd-oss-network

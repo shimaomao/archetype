@@ -1,0 +1,31 @@
+
+# practice-service's spring-cloud bootstrap
+
+
+endpoints:
+  info:
+    sensitive: false
+
+encrypt:
+  failOnError: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://user:user_pass@local-eureka:8761/eureka/}
+  #instance:
+
+spring.application.name: practice-service
+
+spring.cloud:
+  config:
+    enabled: true
+    discovery:
+      enabled: true
+      serviceId: ${SPRING_CLOUD_CONFIG_DISCOVERY_SERVICEID:local-configserver}
+    failFast: true
+    name: practice-service
+    label: ${SPRING_CLOUD_CONFIG_LABEL:develop}
+    profile: ${spring.profiles.active:${ENV:development}.env}
+    username: ${CONFIG_SERVER_USERNAME:user}
+    password: ${CONFIG_SERVER_PASSWORD:user_pass}
