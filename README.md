@@ -7,6 +7,12 @@ this project use to quick start with :
 + swagger config 
 + micro client 
 
-**use**
+## use
+
+to generate maven archetype
 
      mvn archetype:create-from-project 
+
+## swagger
+
+     localhost:8080/swagger-ui.html
